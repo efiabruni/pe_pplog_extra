@@ -15,6 +15,6 @@ edit configuration file from the admin page
 upload files for the admin page
 
 ## Themes
-plain
-darkgrey
-additional background pictures                     
+* plain
+* darkgrey
+* additional background pictures                     
