@@ -12,7 +12,7 @@ body {
 	font-size: 1em;
 	color: white;
 	background:black;
-	background-image: url('/images/photos/bestpics/flores.JPG');
+	background-image: url(flores.jpg);
 	background-position: 100% 0px;
 	background-repeat: no-repeat;
 	background-size:75%;
