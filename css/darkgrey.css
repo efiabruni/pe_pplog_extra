@@ -217,8 +217,7 @@ blockquote
 }
 
 nav  {
- 	float:left;
-	padding:5px;
+ 	padding:5px;
 	width: 20%;
 	letter-spacing: -1px;
 }
@@ -277,7 +276,7 @@ input:focus + .box *{opacity:1;}
 			max-height:80%;
 		}
 #footer, footer{
-float:left;
+
  width:20%;
  padding:5px; 
  background-color:rgba(204,204,204,0.3);
@@ -292,7 +291,6 @@ float:left;
 	
 	text-align: center;
 	padding-top: 0.8em;
-	float:none;
 	width:100%;
 	
 }
