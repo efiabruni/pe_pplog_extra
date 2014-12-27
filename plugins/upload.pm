@@ -1,3 +1,32 @@
+my %pluglocale;
+
+$pluglocale{"EN"}={
+unsupported=>"Unsupported characters in the filename. Your filename may only contain alphabetic characters, numbers and the characters",
+extension => "File type not allowed. Allowed are: @config_allowedMime",
+noopenup=>"Couldn't open $output_file for writing: ",
+saveup=>"File saved to ",
+folder=>"Folders",
+file => "File(s) to upload",
+};
+$pluglocale{"GER"}={
+unsupported =>"Unerlaubte Zeichen im Dateinamen. Er darf nur Buchstaben, Zahlen und die volgenden Zeichen beinhalten",
+extension => "Dateityp nicht erlaubt. Erlaubt sind: @config_allowedMime",
+noopenup=>"$output_file konnte nicht geöffnet werden",
+saveup=>"Datei gespeichert unter",
+folder=>"Ordner",
+file => "Dateien hochladen",
+};
+$pluglocale{"ES"}={
+unsupported =>"Caracteres no admitidos en el nombre del archivo. Su nombre sólo puede contener caracteres alfabéticos, números y los caracteres",
+extension => "Tipo de archivo no permitido. Con los tipos MIME son: @config_allowedMime",
+noopenup=>"No puede abrir $output_file para escribir: ",
+saveup=>"Archivo guardado en",
+folder=>"Carpetas",
+file => "Archivo para cargar",
+};
+$pluglocale{"EL"}=$pluglocale{"EN"};
+$pluglocale{"CUSTOM"}=$pluglocale{"EN"};
+
 print '<h1>'.$locale{$lang}->{upload}.'</h1>';
 
 if (r('process') eq 'upload')
@@ -25,32 +54,32 @@ if (r('process') eq 'upload')
 		}
 			# check for unsupported charcters
 		unless($file =~ /^([-\@:\/\\\w.]+)$/) { 
-			print "$locale{$lang}->{unsupported} '_', '-', '\@', '/', '\\','.'";
+			print "$pluglocale{$lang}->{unsupported} '_', '-', '\@', '/', '\\','.'";
 			$do=0;  
 			}
 			#check for allowed mime types
 	unless (grep {$type =~ /$_(.+?)/} @config_allowedMime){
-		print "$locale{$lang}->{extension}";
+		print "$pluglocale{$lang}->{extension}";
 		$do=0;
 	}
 
 	
 		#write file
 		if ($do==1){
-			open (OUTFILE, ">", "$output_file") or print "$locale{$lang}->{noopenup} $!";
+			open (OUTFILE, ">", "$output_file") or print "$pluglocale{$lang}->{noopenup} $!";
 			while ($bytesread = $io_file->read($buffer, $numbytes)) 
 				{print OUTFILE $buffer;}
 			
-			close OUTFILE and print "$locale{$lang}->{saveup} $output_file <br />";
+			close OUTFILE and print "$pluglocale{$lang}->{saveup} $output_file <br />";
 			}
 		}
 }
 	
 
 print '<form method="post" action="http://'.$ENV{HTTP_HOST}.$ENV{REQUEST_URI}.'" enctype="multipart/form-data" accept-charset="UTF-8">
-<p><label for="file">'.$locale{$lang}->{file}.'</label>
+<p><label for="file">'.$pluglocale{$lang}->{file}.'</label>
 <input type="file" name="filename" multiple /></p>
-<p><label>'.$locale{$lang}->{folder}.'</label><select name="folder"/>';
+<p><label>'.$pluglocale{$lang}->{folder}.'</label><select name="folder"/>';
 
 #show upload folders and subfolders (2 levels)
 foreach $fol(@config_uploadFolders){ 

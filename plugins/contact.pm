@@ -1,6 +1,40 @@
 #contact plug in for the pe_pplog, 16.05.13 by efia
 #bugfix and added security question feature 23.11.13
 
+my %pluglocale;
+$pluglocale{'EN'}={
+message => "Your message has been sent. Thank you",
+send => "Send",
+contactinfo => "Contact Info",
+contactform => "Contact Form",
+csubject => "Subject",
+email => "email",
+name => "Name",
+cmessage => "Message",
+};
+$pluglocale{'GER'}={
+message => "Ihre Nachricht wurde gesendet. Vielen Dank",
+contactinfo => "Kontakt Informationen",
+contactform => "Kontaktformular",
+csubject => "Subject",
+name => "Name",
+email => "email",
+cmessage => "Nachricht",
+send => "Senden",
+};
+$pluglocale{'ES'}={
+send => "Enviar",
+contactinfo => "Información de Contacto",
+contactform => "Formulario de Contacto",
+csubject => "Asunto",
+email => "Correo electrónico ",
+name => "Nombre",
+cmessage => "Mensaje",
+message => "Su mensaje ha sido enviado. Gracias",
+};
+$pluglocale{'EL'}=$pluglocale{'EN'};
+$pluglocale{'CUSTOM'}=$pluglocale{'EN'};
+	
 if (r('process')eq 'contact'){
 	my $title = r('title');
 	my $author = r('name');
@@ -44,7 +78,7 @@ if (r('process')eq 'contact'){
 			open(FILE, ">$config_DatabaseFolder/emails/$i.$config_dbFilesExtension");
 			print FILE "$title¬$message¬$date¬$author'$email¬$i";
 			close FILE;         
-			print "<br />$locale{$lang}->{message} $author!";
+			print "<br />$pluglocale{$lang}->{message} $author!";
 		}
 	else{
 		open (MAIL,"|$config_sendMailWithNewCommentMail[0]") or die $locale{$lang}->{sendmail};
@@ -54,19 +88,19 @@ if (r('process')eq 'contact'){
 		print MAIL "$message ";
 		close(MAIL);
 	
-		print "<br />$locale{$lang}->{message} $author.";
+		print "<br />$pluglocale{$lang}->{message} $author.";
 		}
 	}		
 }
 my $originalQuestion =$keys[rand @keys];
-print '<h1>'.$locale{$lang}->{contactinfo}.'</h1>'.$config_contactAddress.'<br />
+print '<h1>'.$pluglocale{$lang}->{contactinfo}.'</h1>'.$config_contactAddress.'<br />
 <form action="" name="submitform" method="post">
-<legend>'.$locale{$lang}->{contactform}.'</legend>	
-<p><label for="title">'.$locale{$lang}->{csubject}.'</label>
+<legend>'.$pluglocale{$lang}->{contactform}.'</legend>	
+<p><label for="title">'.$pluglocale{$lang}->{csubject}.'</label>
 <input name=title type=text id=title></p>
-<p><label for="name">'.$locale{$lang}->{name}.'</label>
+<p><label for="name">'.$pluglocale{$lang}->{name}.'</label>
 <input name=name type=text id=name></p>
-<p><label for="email">'.$locale{$lang}->{email}.'</label>
+<p><label for="email">'.$pluglocale{$lang}->{email}.'</label>
 <input name=email type=text id=email></p>
 <p class="comment"><label for="commment">'.$locale{$lang}->{pot}.'</label>
 <input name="comment" type="text" id="comment" ></p>
@@ -76,5 +110,5 @@ print '<h1>'.$locale{$lang}->{contactinfo}.'</h1>'.$config_contactAddress.'<br /
 .$originalQuestion.'</label>
 <input name="question" type="text" id="question"></p>
 <p><input name="process" type="hidden" id="process" value="contact"> 
-<input type="submit" name="Submit" value="'.$locale{$lang}->{send}.'">
+<input type="submit" name="Submit" value="'.$pluglocale{$lang}->{send}.'">
 </p></form>';
